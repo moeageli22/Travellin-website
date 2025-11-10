@@ -4,7 +4,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { MapPin, Star, Calendar, Users, CreditCard, X, Check } from "lucide-react"
+import { Calendar } from "@/components/ui/calendar"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { MapPin, Star, CalendarIcon, Users, CreditCard, X, Check, ChevronLeft, ChevronRight } from "lucide-react"
+import { format } from "date-fns"
 
 const hotels = [
   {
@@ -12,91 +15,205 @@ const hotels = [
     name: "Azure Paradise Resort",
     location: "Maldives",
     rating: 5,
-    price: 450,
     image: "/luxury-maldives-overwater-resort-turquoise-ocean.jpg",
-    description: "Luxury overwater villa with pristine ocean views",
-    amenities: ["Free WiFi", "Ocean View", "Spa", "Restaurant", "Pool"],
+    images: [
+      "/luxury-maldives-overwater-resort-turquoise-ocean.jpg",
+      "/maldives-sunset.png",
+      "/maldives-infinity-pool.jpg",
+    ],
+    description:
+      "Experience tropical serenity above crystal waters. Nestled over turquoise waters in the heart of the Maldives, Azure Paradise Resort offers the ultimate overwater villa experience. Each suite features a private deck, glass-floor lagoon views, and direct ocean access. Enjoy candle-lit dining on the beach, snorkeling with coral reef life, and spa treatments inspired by island botanicals.",
+    amenities: ["Infinity pool", "Spa", "Fine dining", "Ocean sports", "Private butler"],
+    rooms: [
+      {
+        id: 1,
+        name: "Overwater Deluxe Villa",
+        description: "Panoramic lagoon view, private deck, glass floor",
+        price: 450,
+        guests: 2,
+      },
+      {
+        id: 2,
+        name: "Sunset Lagoon Suite",
+        description: "Ocean sunset view, king bed, jacuzzi",
+        price: 520,
+        guests: 2,
+      },
+      {
+        id: 3,
+        name: "Family Ocean Villa",
+        description: "Two bedrooms, private pool, outdoor lounge",
+        price: 590,
+        guests: 4,
+      },
+    ],
   },
   {
     id: 2,
     name: "Skyline Grand Hotel",
     location: "New York",
     rating: 5,
-    price: 380,
     image: "/new-york-city-skyline-night-modern-hotel.jpg",
-    description: "Modern hotel in the heart of Manhattan",
-    amenities: ["Free WiFi", "City View", "Gym", "Restaurant", "Bar"],
+    images: [
+      "/new-york-city-skyline-night-modern-hotel.jpg",
+      "/new-york-hotel-room-cityscape.jpg",
+      "/manhattan-rooftop-bar.jpg",
+    ],
+    description:
+      "Located in the vibrant heart of Manhattan, Skyline Grand Hotel blends modern luxury with skyline views that never sleep. Floor-to-ceiling windows overlook the cityscape, and guests enjoy quick access to Central Park, Fifth Avenue, and Broadway. Perfect for business or leisure travelers who crave elegance and convenience.",
+    amenities: ["Rooftop bar", "24-hour concierge", "Gym & spa", "Smart rooms"],
+    rooms: [
+      { id: 1, name: "Executive King", description: "City view, work desk, high-speed WiFi", price: 380, guests: 2 },
+      { id: 2, name: "City View Suite", description: "Separate living area, panoramic windows", price: 450, guests: 2 },
+      {
+        id: 3,
+        name: "Penthouse Loft",
+        description: "Two floors, private terrace, butler service",
+        price: 690,
+        guests: 4,
+      },
+    ],
   },
   {
     id: 3,
     name: "Mountain Vista Lodge",
     location: "Swiss Alps",
     rating: 4,
-    price: 320,
     image: "/swiss-alps-mountain-lodge-stone-architecture.jpg",
-    description: "Cozy mountain retreat with stunning alpine views",
-    amenities: ["Free WiFi", "Mountain View", "Fireplace", "Restaurant", "Ski Access"],
+    images: [
+      "/swiss-alps-mountain-lodge-stone-architecture.jpg",
+      "/swiss-alps-snow-chalet-interior.jpg",
+      "/mountain-lodge-fireplace-cozy.jpg",
+    ],
+    description:
+      "Perched high in the snow-kissed Alps, Mountain Vista Lodge invites you to relax amid panoramic mountain views and cozy alpine charm. Each chalet-style suite features rustic wood interiors, fireplaces, and private balconies. Guests can ski by day and unwind by the fireside lounge by night.",
+    amenities: ["Ski-in/out access", "Sauna", "Spa", "Gourmet restaurant"],
+    rooms: [
+      { id: 1, name: "Alpine Standard Room", description: "Mountain view, fireplace, balcony", price: 320, guests: 2 },
+      { id: 2, name: "Chalet Suite", description: "Wood interior, separate living area", price: 420, guests: 2 },
+      {
+        id: 3,
+        name: "Panorama Deluxe Loft",
+        description: "Two bedrooms, private sauna, 360° views",
+        price: 540,
+        guests: 4,
+      },
+    ],
   },
   {
     id: 4,
     name: "Royal Elegance Suite",
     location: "Paris",
     rating: 5,
-    price: 520,
     image: "/luxury-paris-hotel-room-elegant-interior.jpg",
-    description: "Elegant suite near the Eiffel Tower",
-    amenities: ["Free WiFi", "City View", "Spa", "Fine Dining", "Concierge"],
+    images: [
+      "/luxury-paris-hotel-room-elegant-interior.jpg",
+      "/paris-hotel-marble-bathroom-luxury.jpg",
+      "/paris-terrace-eiffel-tower-view.jpg",
+    ],
+    description:
+      "Experience Parisian grandeur at Royal Elegance Suite, set in a restored 19th-century mansion minutes from the Champs-Élysées. Ornate interiors, marble bathrooms, and private terraces exude timeless sophistication. Ideal for romantic getaways and luxury travelers seeking classic Paris elegance.",
+    amenities: ["Fine-dining restaurant", "In-room butler", "Limousine service", "Spa"],
+    rooms: [
+      { id: 1, name: "Classic Room", description: "French decor, marble bathroom", price: 520, guests: 2 },
+      { id: 2, name: "Prestige Suite", description: "Separate lounge, terrace, city views", price: 650, guests: 2 },
+      { id: 3, name: "Royal Apartment", description: "Two bedrooms, private butler, limousine", price: 890, guests: 4 },
+    ],
   },
   {
     id: 5,
     name: "Modern Heights Hotel",
     location: "Tokyo",
     rating: 5,
-    price: 290,
     image: "/modern-tokyo-hotel-minimalist-design-interior.jpg",
-    description: "Contemporary hotel in vibrant Shibuya",
-    amenities: ["Free WiFi", "City View", "Gym", "Restaurant", "Tech Hub"],
+    images: [
+      "/modern-tokyo-hotel-minimalist-design-interior.jpg",
+      "/tokyo-skyline-night-hotel-view.jpg",
+      "/japanese-minimalist-hotel-room.jpg",
+    ],
+    description:
+      "A sleek urban retreat in Shinjuku, Modern Heights Hotel merges Japanese minimalism with smart-room technology. Guests enjoy breathtaking skyline views, in-room tablets for concierge services, and access to Tokyo's best nightlife and cuisine.",
+    amenities: ["Onsen spa", "Rooftop restaurant", "Gym", "Automated check-in"],
+    rooms: [
+      { id: 1, name: "Standard King", description: "Smart room tech, city view", price: 290, guests: 2 },
+      { id: 2, name: "Deluxe City Suite", description: "Panoramic windows, tech hub", price: 360, guests: 2 },
+      {
+        id: 3,
+        name: "Skyline Executive",
+        description: "Two bedrooms, onsen bath, skyline views",
+        price: 450,
+        guests: 4,
+      },
+    ],
   },
   {
     id: 6,
     name: "Coastal Dream Resort",
     location: "Bali",
     rating: 5,
-    price: 395,
     image: "/bali-beach-resort-tropical-ocean-view.jpg",
-    description: "Beachfront paradise with tropical gardens",
-    amenities: ["Free WiFi", "Beach Access", "Spa", "Pool", "Yoga Classes"],
+    images: [
+      "/bali-beach-resort-tropical-ocean-view.jpg",
+      "/bali-infinity-pool-ocean-sunset.jpg",
+      "/bali-tropical-villa-palm-trees.jpg",
+    ],
+    description:
+      "A serene beachfront paradise surrounded by palm trees and coral-blue waters, Coastal Dream Resort is perfect for those seeking relaxation and culture. Guests can enjoy sunrise yoga sessions, Balinese spa rituals, and tropical cocktails overlooking the sea.",
+    amenities: ["Beachfront villas", "Infinity pool", "Wellness center", "Surf classes"],
+    rooms: [
+      { id: 1, name: "Garden Villa", description: "Tropical garden view, outdoor shower", price: 395, guests: 2 },
+      { id: 2, name: "Oceanfront Suite", description: "Direct beach access, private terrace", price: 480, guests: 2 },
+      {
+        id: 3,
+        name: "Honeymoon Villa",
+        description: "Private pool, ocean view, romantic setup",
+        price: 620,
+        guests: 2,
+      },
+    ],
   },
-]
-
-const roomTypes = [
-  { id: 1, name: "Standard Room", price: 0, guests: 2 },
-  { id: 2, name: "Deluxe Room", price: 100, guests: 2 },
-  { id: 3, name: "Suite", price: 250, guests: 4 },
-  { id: 4, name: "Presidential Suite", price: 500, guests: 6 },
 ]
 
 export default function HotelDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const hotel = hotels.find((h) => h.id === Number.parseInt(params.id))
   const [step, setStep] = useState(1)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [bookingData, setBookingData] = useState({
-    roomType: roomTypes[0],
+    roomType: hotel?.rooms[0] || null,
     checkIn: "",
     checkOut: "",
     guests: 2,
+    specialRequests: "",
   })
+  const [checkInDate, setCheckInDate] = useState<Date>()
+  const [checkOutDate, setCheckOutDate] = useState<Date>()
   const [paymentMethod, setPaymentMethod] = useState("")
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardholderName: "",
+  })
   const [showConfirmation, setShowConfirmation] = useState(false)
 
   if (!hotel) {
     return <div className="min-h-screen bg-[#0a0e27] flex items-center justify-center text-white">Hotel not found</div>
   }
 
-  const totalPrice = hotel.price + bookingData.roomType.price
-  const nights = 3 // Default for demo
+  const calculateNights = () => {
+    if (checkInDate && checkOutDate) {
+      const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime())
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+      return diffDays > 0 ? diffDays : 1 // Ensure at least 1 night
+    }
+    return 1 // Default to 1 night if dates are not set
+  }
 
-  const handleRoomSelect = (room: (typeof roomTypes)[0]) => {
+  const nights = calculateNights()
+  const totalPrice = bookingData.roomType ? bookingData.roomType.price * nights : 0
+
+  const handleRoomSelect = (room: any) => {
     setBookingData({ ...bookingData, roomType: room })
   }
 
@@ -105,9 +222,19 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
       setShowConfirmation(true)
       setTimeout(() => {
         router.push("/hotels")
-      }, 3000)
+      }, 4000)
     }
   }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % hotel.images.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + hotel.images.length) % hotel.images.length)
+  }
+
+  const bookingId = `#TRV-${Math.floor(10000 + Math.random() * 90000)}`
 
   return (
     <div className="min-h-screen bg-[#0a0e27]">
@@ -129,34 +256,91 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
 
       {/* Confirmation Modal */}
       {showConfirmation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#1a1f3a] rounded-2xl p-8 max-w-md mx-4 border border-purple-500/40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="bg-[#1a1f3a] rounded-2xl p-8 max-w-lg w-full mx-4 border border-purple-500/40">
             <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mb-4">
-                <Check className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-4">
+                <Check className="w-12 h-12 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Booking Confirmed!</h2>
-              <p className="text-purple-300 mb-4">Your reservation has been successfully confirmed.</p>
-              <p className="text-gray-400 text-sm">Redirecting to hotels page...</p>
+              <h2 className="text-3xl font-bold text-white mb-2">Booking Confirmed!</h2>
+              <p className="text-purple-300 mb-4">Thank you for choosing {hotel.name}.</p>
+              <div className="w-full bg-[#0a0e27] rounded-lg p-4 mb-4 text-left">
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Booking ID:</span>
+                    <span className="text-purple-400 font-mono font-semibold">{bookingId}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Check-in:</span>
+                    <span className="text-white">{checkInDate ? format(checkInDate, "PPP") : "Not set"}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Check-out:</span>
+                    <span className="text-white">{checkOutDate ? format(checkOutDate, "PPP") : "Not set"}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Duration:</span>
+                    <span className="text-white">
+                      {nights} {nights === 1 ? "night" : "nights"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Total Paid:</span>
+                    <span className="text-green-400 font-bold">${totalPrice}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Payment via:</span>
+                    <span className="text-white capitalize">
+                      {paymentMethod === "apple"
+                        ? "Apple Pay"
+                        : paymentMethod === "google"
+                          ? "Google Pay"
+                          : paymentMethod === "paypal"
+                            ? "PayPal"
+                            : "Credit Card"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-gray-400 text-sm mb-4">
+                You'll receive a confirmation email shortly with your digital receipt and check-in details.
+              </p>
+              <Button
+                onClick={() => router.push("/hotels")}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-2 rounded-lg"
+              >
+                Return to Hotels
+              </Button>
             </div>
           </div>
         </div>
       )}
 
-      <main className="pt-24 pb-16 px-6">
+      <main className="pt-24 pb-16 px-4 md:px-6">
         <div className="container mx-auto max-w-6xl">
           {/* Progress Steps */}
-          <div className="mb-8 flex items-center justify-center gap-4">
-            {[1, 2, 3].map((s) => (
-              <div key={s} className="flex items-center">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                    step >= s ? "bg-purple-600 text-white" : "bg-gray-700 text-gray-400"
-                  }`}
-                >
-                  {s}
+          <div className="mb-8 flex items-center justify-center gap-2 md:gap-4">
+            {[
+              { num: 1, label: "Room" },
+              { num: 2, label: "Details" },
+              { num: 3, label: "Payment" },
+            ].map((s, idx) => (
+              <div key={s.num} className="flex items-center">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-semibold transition-all ${
+                      step >= s.num ? "bg-purple-600 text-white scale-110" : "bg-gray-700 text-gray-400"
+                    }`}
+                  >
+                    {s.num}
+                  </div>
+                  <span
+                    className={`text-xs mt-1 hidden md:block ${step >= s.num ? "text-purple-400" : "text-gray-500"}`}
+                  >
+                    {s.label}
+                  </span>
                 </div>
-                {s < 3 && <div className={`w-16 h-1 ${step > s ? "bg-purple-600" : "bg-gray-700"}`} />}
+                {idx < 2 && <div className={`w-12 md:w-20 h-1 ${step > s.num ? "bg-purple-600" : "bg-gray-700"}`} />}
               </div>
             ))}
           </div>
@@ -164,14 +348,42 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           {/* Step 1: Room Selection */}
           {step === 1 && (
             <div className="space-y-6">
-              <div className="relative h-80 rounded-2xl overflow-hidden">
-                <Image src={hotel.image || "/placeholder.svg"} alt={hotel.name} fill className="object-cover" />
+              <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden group">
+                <Image
+                  src={hotel.images[currentImageIndex] || "/placeholder.svg"}
+                  alt={hotel.name}
+                  fill
+                  className="object-cover"
+                />
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                  {hotel.images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentImageIndex(idx)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        idx === currentImageIndex ? "bg-white w-6" : "bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">{hotel.name}</h1>
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4">
+                  <div className="flex-1">
+                    <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{hotel.name}</h1>
                     <div className="flex items-center gap-2 text-purple-300 mb-2">
                       <MapPin className="w-5 h-5" />
                       <span>{hotel.location}</span>
@@ -182,14 +394,9 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
                       ))}
                     </div>
                   </div>
-                  <div className="text-right">
-                    <span className="text-purple-400 text-sm">from </span>
-                    <span className="text-white text-3xl font-bold">${hotel.price}</span>
-                    <span className="text-gray-400 text-sm"> /night</span>
-                  </div>
                 </div>
 
-                <p className="text-gray-300 mb-4">{hotel.description}</p>
+                <p className="text-gray-300 mb-4 leading-relaxed">{hotel.description}</p>
 
                 <div className="flex flex-wrap gap-2">
                   {hotel.amenities.map((amenity) => (
@@ -200,33 +407,63 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
                 </div>
               </div>
 
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
-                <h2 className="text-2xl font-bold text-white mb-4">Select Room Type</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {roomTypes.map((room) => (
-                    <button
-                      key={room.id}
-                      onClick={() => handleRoomSelect(room)}
-                      className={`p-4 rounded-xl border-2 transition-all text-left ${
-                        bookingData.roomType.id === room.id
-                          ? "border-purple-500 bg-purple-600/20"
-                          : "border-gray-700 hover:border-purple-500/50"
-                      }`}
-                    >
-                      <h3 className="text-lg font-semibold text-white mb-1">{room.name}</h3>
-                      <p className="text-purple-300 text-sm mb-2">Up to {room.guests} guests</p>
-                      <p className="text-white font-bold">{room.price === 0 ? "Included" : `+$${room.price}/night`}</p>
-                    </button>
-                  ))}
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
+                <h2 className="text-2xl font-bold text-white mb-4">Select Your Room Type</h2>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="border-b border-purple-500/30">
+                        <th className="pb-3 text-purple-300 font-semibold">Room Type</th>
+                        <th className="pb-3 text-purple-300 font-semibold">Description</th>
+                        <th className="pb-3 text-purple-300 font-semibold">Price (per night)</th>
+                        <th className="pb-3 text-purple-300 font-semibold">Guests</th>
+                        <th className="pb-3 text-purple-300 font-semibold"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {hotel.rooms.map((room) => (
+                        <tr
+                          key={room.id}
+                          className={`border-b border-purple-500/20 transition-colors ${
+                            bookingData.roomType?.id === room.id ? "bg-purple-600/10" : "hover:bg-purple-600/5"
+                          }`}
+                        >
+                          <td className="py-4">
+                            <span className="text-white font-semibold">{room.name}</span>
+                          </td>
+                          <td className="py-4 text-gray-400 text-sm max-w-xs">{room.description}</td>
+                          <td className="py-4">
+                            <span className="text-white font-bold text-lg">${room.price}</span>
+                          </td>
+                          <td className="py-4 text-gray-300">{room.guests}</td>
+                          <td className="py-4">
+                            <Button
+                              onClick={() => handleRoomSelect(room)}
+                              variant={bookingData.roomType?.id === room.id ? "default" : "outline"}
+                              className={
+                                bookingData.roomType?.id === room.id
+                                  ? "bg-purple-600 hover:bg-purple-700 text-white"
+                                  : "border-purple-500 text-purple-300 hover:bg-purple-600/20"
+                              }
+                              size="sm"
+                            >
+                              {bookingData.roomType?.id === room.id ? "Selected" : "Select"}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
               <div className="flex justify-end">
                 <Button
                   onClick={() => setStep(2)}
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg"
+                  disabled={!bookingData.roomType}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Continue
+                  Continue →
                 </Button>
               </div>
             </div>
@@ -235,91 +472,135 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           {/* Step 2: Booking Details */}
           {step === 2 && (
             <div className="space-y-6">
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
-                <h2 className="text-2xl font-bold text-white mb-6">Booking Details</h2>
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
+                <h2 className="text-2xl font-bold text-white mb-6">Complete Your Booking</h2>
 
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-purple-300 mb-2">Check-in Date</label>
-                      <div className="relative">
-                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" />
-                        <input
-                          type="date"
-                          value={bookingData.checkIn}
-                          onChange={(e) => setBookingData({ ...bookingData, checkIn: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
-                        />
-                      </div>
+                      <label className="block text-purple-300 mb-2 font-medium">Check-in Date</label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start text-left font-normal bg-[#0a0e27] border-purple-500/30 hover:border-purple-500 hover:bg-[#0a0e27] text-white"
+                          >
+                            <CalendarIcon className="mr-2 h-5 w-5 text-purple-400" />
+                            {checkInDate ? format(checkInDate, "PPP") : <span>Pick a date</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0 bg-[#1a1f3a] border-purple-500/30">
+                          <Calendar
+                            mode="single"
+                            selected={checkInDate}
+                            onSelect={setCheckInDate}
+                            disabled={(date) => date < new Date()}
+                            initialFocus
+                            className="bg-[#1a1f3a] text-white"
+                          />
+                        </PopoverContent>
+                      </Popover>
                     </div>
 
                     <div>
-                      <label className="block text-purple-300 mb-2">Check-out Date</label>
-                      <div className="relative">
-                        <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" />
-                        <input
-                          type="date"
-                          value={bookingData.checkOut}
-                          onChange={(e) => setBookingData({ ...bookingData, checkOut: e.target.value })}
-                          className="w-full pl-12 pr-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
-                        />
-                      </div>
+                      <label className="block text-purple-300 mb-2 font-medium">Check-out Date</label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start text-left font-normal bg-[#0a0e27] border-purple-500/30 hover:border-purple-500 hover:bg-[#0a0e27] text-white"
+                          >
+                            <CalendarIcon className="mr-2 h-5 w-5 text-purple-400" />
+                            {checkOutDate ? format(checkOutDate, "PPP") : <span>Pick a date</span>}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0 bg-[#1a1f3a] border-purple-500/30">
+                          <Calendar
+                            mode="single"
+                            selected={checkOutDate}
+                            onSelect={setCheckOutDate}
+                            disabled={(date) => date < (checkInDate || new Date())}
+                            initialFocus
+                            className="bg-[#1a1f3a] text-white"
+                          />
+                        </PopoverContent>
+                      </Popover>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-purple-300 mb-2">Number of Guests</label>
+                    <label className="block text-purple-300 mb-2 font-medium">Number of Guests</label>
                     <div className="relative">
                       <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-purple-400" />
                       <input
                         type="number"
                         min="1"
-                        max={bookingData.roomType.guests}
+                        max={bookingData.roomType?.guests || 2}
                         value={bookingData.guests}
                         onChange={(e) => setBookingData({ ...bookingData, guests: Number.parseInt(e.target.value) })}
                         className="w-full pl-12 pr-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
                       />
                     </div>
                   </div>
+
+                  <div>
+                    <label className="block text-purple-300 mb-2 font-medium">Special Requests (Optional)</label>
+                    <textarea
+                      value={bookingData.specialRequests}
+                      onChange={(e) => setBookingData({ ...bookingData, specialRequests: e.target.value })}
+                      placeholder="e.g., Need wheelchair access, dietary requirements, early check-in..."
+                      rows={3}
+                      className="w-full px-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none resize-none"
+                    />
+                    <p className="text-gray-400 text-sm mt-2">
+                      We'll make sure your stay is as comfortable as possible.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
                 <h3 className="text-xl font-bold text-white mb-4">Booking Summary</h3>
-                <div className="space-y-2 text-gray-300">
+                <div className="space-y-3 text-gray-300">
                   <div className="flex justify-between">
                     <span>{hotel.name}</span>
-                    <span className="text-white font-semibold">${hotel.price}/night</span>
+                    <span className="text-white font-semibold">{hotel.location}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{bookingData.roomType.name}</span>
+                    <span>Room: {bookingData.roomType?.name}</span>
+                    <span className="text-white font-semibold">${bookingData.roomType?.price}/night</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Duration</span>
                     <span className="text-white font-semibold">
-                      {bookingData.roomType.price === 0 ? "Included" : `+$${bookingData.roomType.price}/night`}
+                      {nights} {nights === 1 ? "night" : "nights"}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{nights} nights</span>
+                    <span>Guests</span>
+                    <span className="text-white font-semibold">{bookingData.guests}</span>
                   </div>
-                  <div className="border-t border-purple-500/30 pt-2 mt-2 flex justify-between text-lg">
+                  <div className="border-t border-purple-500/30 pt-3 mt-3 flex justify-between text-lg">
                     <span className="text-white font-bold">Total</span>
-                    <span className="text-purple-400 font-bold">${totalPrice * nights}</span>
+                    <span className="text-purple-400 font-bold text-2xl">${totalPrice}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row justify-between gap-4">
                 <Button
                   onClick={() => setStep(1)}
                   variant="outline"
                   className="border-purple-500 text-purple-300 hover:bg-purple-600/20 px-8 py-3 rounded-lg text-lg"
                 >
-                  Back
+                  ← Back
                 </Button>
                 <Button
                   onClick={() => setStep(3)}
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg"
+                  disabled={!checkInDate || !checkOutDate || !bookingData.roomType}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Continue to Payment
+                  Proceed to Payment →
                 </Button>
               </div>
             </div>
@@ -328,20 +609,32 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
           {/* Step 3: Payment */}
           {step === 3 && (
             <div className="space-y-6">
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
-                <h2 className="text-2xl font-bold text-white mb-6">Payment Method</h2>
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
+                <h2 className="text-2xl font-bold text-white mb-2">Secure Payment</h2>
+                <p className="text-gray-400 text-sm mb-6">
+                  Choose your preferred payment method and confirm your stay.
+                </p>
 
                 <div className="space-y-4">
                   <button
-                    onClick={() => setPaymentMethod("apple")}
+                    onClick={() => {
+                      setPaymentMethod("apple")
+                      setCardDetails({ cardNumber: "", expiryDate: "", cvv: "", cardholderName: "" })
+                    }}
                     className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-4 ${
                       paymentMethod === "apple"
                         ? "border-purple-500 bg-purple-600/20"
                         : "border-gray-700 hover:border-purple-500/50"
                     }`}
                   >
-                    <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-xl"></span>
+                    <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center p-2">
+                      <Image
+                        src="/apple-pay-logo.png"
+                        alt="Apple Pay"
+                        width={56}
+                        height={56}
+                        className="object-contain"
+                      />
                     </div>
                     <div className="text-left flex-1">
                       <h3 className="text-lg font-semibold text-white">Apple Pay</h3>
@@ -350,15 +643,24 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
                   </button>
 
                   <button
-                    onClick={() => setPaymentMethod("google")}
+                    onClick={() => {
+                      setPaymentMethod("google")
+                      setCardDetails({ cardNumber: "", expiryDate: "", cvv: "", cardholderName: "" })
+                    }}
                     className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-4 ${
                       paymentMethod === "google"
                         ? "border-purple-500 bg-purple-600/20"
                         : "border-gray-700 hover:border-purple-500/50"
                     }`}
                   >
-                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                      <span className="text-blue-600 font-bold text-xl">G</span>
+                    <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center p-2">
+                      <Image
+                        src="/google-pay-logo.png"
+                        alt="Google Pay"
+                        width={56}
+                        height={56}
+                        className="object-contain"
+                      />
                     </div>
                     <div className="text-left flex-1">
                       <h3 className="text-lg font-semibold text-white">Google Pay</h3>
@@ -374,88 +676,152 @@ export default function HotelDetailPage({ params }: { params: { id: string } }) 
                         : "border-gray-700 hover:border-purple-500/50"
                     }`}
                   >
-                    <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
-                      <CreditCard className="w-6 h-6 text-white" />
+                    <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center">
+                      <CreditCard className="w-7 h-7 text-white" />
                     </div>
                     <div className="text-left flex-1">
-                      <h3 className="text-lg font-semibold text-white">Credit Card</h3>
-                      <p className="text-gray-400 text-sm">Pay with credit or debit card</p>
+                      <h3 className="text-lg font-semibold text-white">Credit / Debit Card</h3>
+                      <p className="text-gray-400 text-sm">Pay with Visa, MasterCard, or AmEx</p>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setPaymentMethod("paypal")
+                      setCardDetails({ cardNumber: "", expiryDate: "", cvv: "", cardholderName: "" })
+                    }}
+                    className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-4 ${
+                      paymentMethod === "paypal"
+                        ? "border-purple-500 bg-purple-600/20"
+                        : "border-gray-700 hover:border-purple-500/50"
+                    }`}
+                  >
+                    <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center">
+                      <span className="text-white font-bold text-xl">P</span>
+                    </div>
+                    <div className="text-left flex-1">
+                      <h3 className="text-lg font-semibold text-white">PayPal</h3>
+                      <p className="text-gray-400 text-sm">Pay securely with PayPal</p>
                     </div>
                   </button>
                 </div>
 
                 {paymentMethod === "card" && (
-                  <div className="mt-6 space-y-4">
+                  <div className="mt-6 space-y-4 p-4 bg-[#0a0e27] rounded-xl border border-purple-500/30">
                     <div>
-                      <label className="block text-purple-300 mb-2">Card Number</label>
+                      <label className="block text-purple-300 mb-2 font-medium">Cardholder Name</label>
+                      <input
+                        type="text"
+                        placeholder="John Doe"
+                        value={cardDetails.cardholderName}
+                        onChange={(e) => setCardDetails({ ...cardDetails, cardholderName: e.target.value })}
+                        className="w-full px-4 py-3 bg-[#1a1f3a] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-purple-300 mb-2 font-medium">Card Number</label>
                       <input
                         type="text"
                         placeholder="1234 5678 9012 3456"
-                        className="w-full px-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+                        value={cardDetails.cardNumber}
+                        onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+                        className="w-full px-4 py-3 bg-[#1a1f3a] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-purple-300 mb-2">Expiry Date</label>
+                        <label className="block text-purple-300 mb-2 font-medium">Expiry Date</label>
                         <input
                           type="text"
                           placeholder="MM/YY"
-                          className="w-full px-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+                          value={cardDetails.expiryDate}
+                          onChange={(e) => setCardDetails({ ...cardDetails, expiryDate: e.target.value })}
+                          className="w-full px-4 py-3 bg-[#1a1f3a] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
                         />
                       </div>
                       <div>
-                        <label className="block text-purple-300 mb-2">CVV</label>
+                        <label className="block text-purple-300 mb-2 font-medium">CVV</label>
                         <input
                           type="text"
                           placeholder="123"
-                          className="w-full px-4 py-3 bg-[#0a0e27] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+                          value={cardDetails.cvv}
+                          onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+                          className="w-full px-4 py-3 bg-[#1a1f3a] border border-purple-500/30 rounded-lg text-white focus:border-purple-500 focus:outline-none"
                         />
                       </div>
                     </div>
+                    <p className="text-gray-400 text-xs flex items-center gap-2">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                      All payments are processed securely. Your card details are never stored on our servers.
+                    </p>
                   </div>
                 )}
               </div>
 
-              <div className="bg-[#1a1f3a] rounded-2xl p-6 border border-purple-500/20">
+              <div className="bg-[#1a1f3a] rounded-2xl p-4 md:p-6 border border-purple-500/20">
                 <h3 className="text-xl font-bold text-white mb-4">Final Summary</h3>
-                <div className="space-y-2 text-gray-300">
+                <div className="space-y-3 text-gray-300">
                   <div className="flex justify-between">
                     <span>{hotel.name}</span>
-                    <span className="text-white font-semibold">${hotel.price}/night</span>
+                    <span className="text-white font-semibold">{hotel.location}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>{bookingData.roomType.name}</span>
+                    <span>{bookingData.roomType?.name}</span>
+                    <span className="text-white font-semibold">${bookingData.roomType?.price}/night</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Check-in</span>
                     <span className="text-white font-semibold">
-                      {bookingData.roomType.price === 0 ? "Included" : `+$${bookingData.roomType.price}/night`}
+                      {checkInDate ? format(checkInDate, "PPP") : "Not set"}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Check-out</span>
+                    <span className="text-white font-semibold">
+                      {checkOutDate ? format(checkOutDate, "PPP") : "Not set"}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span>
-                      {nights} nights × ${totalPrice}
+                      {nights} {nights === 1 ? "night" : "nights"} × ${bookingData.roomType?.price}
                     </span>
-                    <span className="text-white font-semibold">${totalPrice * nights}</span>
+                    <span className="text-white font-semibold">${totalPrice}</span>
                   </div>
-                  <div className="border-t border-purple-500/30 pt-2 mt-2 flex justify-between text-xl">
+                  <div className="border-t border-purple-500/30 pt-3 mt-3 flex justify-between text-xl">
                     <span className="text-white font-bold">Total Amount</span>
-                    <span className="text-purple-400 font-bold">${totalPrice * nights}</span>
+                    <span className="text-purple-400 font-bold text-2xl">${totalPrice}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row justify-between gap-4">
                 <Button
                   onClick={() => setStep(2)}
                   variant="outline"
                   className="border-purple-500 text-purple-300 hover:bg-purple-600/20 px-8 py-3 rounded-lg text-lg"
                 >
-                  Back
+                  ← Back
                 </Button>
                 <Button
                   onClick={handlePayment}
-                  disabled={!paymentMethod}
+                  disabled={
+                    !paymentMethod ||
+                    (paymentMethod === "card" &&
+                      (!cardDetails.cardNumber ||
+                        !cardDetails.expiryDate ||
+                        !cardDetails.cvv ||
+                        !cardDetails.cardholderName))
+                  }
                   className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Complete Booking
+                  Confirm & Pay ${totalPrice}
                 </Button>
               </div>
             </div>
