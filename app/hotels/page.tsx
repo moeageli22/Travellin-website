@@ -141,7 +141,7 @@ export default function HotelsPage() {
                       <span className="text-white text-2xl font-bold">${hotel.price}</span>
                       <span className="text-gray-400 text-sm"> /night</span>
                     </div>
-                    <Link href="/signin">
+                    <Link href={`/hotels/${hotel.id}`}>
                       <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg">
                         BOOK
                       </Button>

@@ -8,10 +8,9 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Travelinn - Your AI Travel Companion",
+  title: "Travelinn",
   description:
     "Connect with fellow travelers, find perfect accommodations, and create unforgettable experiences around the world.",
-  generator: "v0.app",
   openGraph: {
     title: "Travelinn - Your AI Travel Companion",
     description:
@@ -50,6 +49,7 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
