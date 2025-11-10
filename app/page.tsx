@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { LottieChatbot } from "@/components/lottie-chatbot"
 import { Menu, X } from "lucide-react"
+import { SettingsDropdown } from "@/components/settings-dropdown"
 
 const backgrounds = [
   {
@@ -93,13 +94,17 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <Link href="/signin" className="hidden md:block">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-6">
-                  SIGN IN
-                </Button>
-              </Link>
+              <div className="hidden md:flex items-center gap-3">
+                <SettingsDropdown />
+                <Link href="/signin">
+                  <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-6">
+                    SIGN IN
+                  </Button>
+                </Link>
+              </div>
 
               <div className="flex items-center gap-3 md:hidden">
+                <SettingsDropdown />
                 <Link href="/signin">
                   <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-4 py-2 text-sm">
                     SIGN IN

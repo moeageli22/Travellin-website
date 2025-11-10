@@ -3,6 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { MapPin, Star } from "lucide-react"
+import { SettingsDropdown } from "@/components/settings-dropdown"
 
 const hotels = [
   {
@@ -108,9 +109,12 @@ export default function HotelsPage() {
               </Link>
             </div>
 
-            <Link href="/signin">
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full">SIGN IN</Button>
-            </Link>
+            <div className="flex items-center gap-3">
+              <SettingsDropdown />
+              <Link href="/signin">
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full">SIGN IN</Button>
+              </Link>
+            </div>
           </div>
         </nav>
       </header>

@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -75,8 +75,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -122,4 +122,70 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Enhanced theme color variables that apply throughout the app */
+:root {
+  --theme-primary: #9333ea;
+  --theme-secondary: #a855f7;
+}
+
+/* Apply theme colors to buttons and interactive elements */
+.bg-purple-600,
+.hover\:bg-purple-700:hover,
+.bg-purple-500 {
+  background-color: var(--theme-primary) !important;
+}
+
+.bg-purple-500\/20 {
+  background-color: color-mix(in srgb, var(--theme-primary) 20%, transparent) !important;
+}
+
+.text-purple-400,
+.text-purple-500,
+.text-purple-600 {
+  color: var(--theme-secondary) !important;
+}
+
+.border-purple-500 {
+  border-color: var(--theme-primary) !important;
+}
+
+.from-purple-600 {
+  --tw-gradient-from: var(--theme-primary) !important;
+}
+
+.to-purple-700 {
+  --tw-gradient-to: var(--theme-secondary) !important;
+}
+
+/* Ring colors for focus states */
+.ring-purple-500 {
+  --tw-ring-color: var(--theme-primary) !important;
+}
+
+/* Theme classes for easy switching */
+.theme-purple {
+  --theme-primary: #9333ea;
+  --theme-secondary: #a855f7;
+}
+
+.theme-blue {
+  --theme-primary: #2563eb;
+  --theme-secondary: #3b82f6;
+}
+
+.theme-green {
+  --theme-primary: #059669;
+  --theme-secondary: #10b981;
+}
+
+.theme-red {
+  --theme-primary: #dc2626;
+  --theme-secondary: #ef4444;
+}
+
+.theme-orange {
+  --theme-primary: #ea580c;
+  --theme-secondary: #f97316;
 }
