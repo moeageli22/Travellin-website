@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, ArrowLeft } from "lucide-react"
+import { User, Mail, Lock, Eye, EyeOff, ArrowLeft } from "lucide-react"
 
 const backgrounds = [
   {
@@ -79,18 +79,29 @@ export default function SignUpPage() {
       {/* Content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
-          <div className="rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-purple-500/20 p-8 shadow-2xl">
-            {/* Header */}
+          <div className="rounded-3xl bg-slate-900/90 backdrop-blur-xl border border-purple-500/30 p-8 shadow-2xl shadow-purple-500/20">
             <div className="mb-8 text-center">
-              <h1 className="mb-2 text-2xl font-semibold text-white">Create Account</h1>
-              <p className="text-sm text-purple-200">Start your journey with Travelinn</p>
+              <div className="mb-4 flex justify-center">
+                <div className="rounded-2xl bg-purple-500/20 p-4 backdrop-blur-sm">
+                  <svg className="h-10 w-10 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h1 className="mb-2 text-3xl font-bold text-white">Create Account</h1>
+              <p className="text-sm text-purple-200">Start your adventure with Travelinn today</p>
             </div>
 
             {/* OAuth Buttons */}
             <div className="mb-6 space-y-3">
               <Button
                 variant="outline"
-                className="w-full bg-slate-800/50 border-slate-700 text-white hover:bg-slate-800 hover:text-white"
+                className="w-full bg-white/10 border-purple-500/30 text-white hover:bg-white/20 hover:border-purple-400 transition-all"
                 type="button"
               >
                 <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
@@ -116,18 +127,18 @@ export default function SignUpPage() {
 
               <Button
                 variant="outline"
-                className="w-full bg-slate-800/50 border-slate-700 text-white hover:bg-slate-800 hover:text-white"
+                className="w-full bg-white/10 border-purple-500/30 text-white hover:bg-white/20 hover:border-purple-400 transition-all"
                 type="button"
               >
                 <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z" />
                 </svg>
                 Continue with Facebook
               </Button>
 
               <Button
                 variant="outline"
-                className="w-full bg-slate-800/50 border-slate-700 text-white hover:bg-slate-800 hover:text-white"
+                className="w-full bg-white/10 border-purple-500/30 text-white hover:bg-white/20 hover:border-purple-400 transition-all"
                 type="button"
               >
                 <svg className="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -139,128 +150,150 @@ export default function SignUpPage() {
 
             <div className="relative mb-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-700" />
+                <div className="w-full border-t border-purple-500/30" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-slate-900 px-2 text-purple-200">or</span>
+                <span className="bg-slate-900 px-3 text-purple-300 font-medium">Or sign up with email</span>
               </div>
             </div>
 
             {/* Sign Up Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-white">
+                <Label htmlFor="name" className="text-white font-medium">
                   Full Name
                 </Label>
                 <div className="relative">
+                  <User className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-purple-400" />
                   <Input
                     id="name"
                     type="text"
                     placeholder="John Doe"
                     value={formData.name}
                     onChange={handleChange}
-                    className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    className="pl-11 h-12 bg-white/10 border-purple-500/30 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white">
-                  Email
+                <Label htmlFor="email" className="text-white font-medium">
+                  Email Address
                 </Label>
                 <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-purple-400" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="you@example.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    className="pl-11 h-12 bg-white/10 border-purple-500/30 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20"
                     required
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white">
+                <Label htmlFor="password" className="text-white font-medium">
                   Password
                 </Label>
                 <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-purple-400" />
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 pr-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    className="pl-11 pr-12 h-12 bg-white/10 border-purple-500/30 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-400 hover:text-purple-300 transition-colors"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-white">
+                <Label htmlFor="confirmPassword" className="text-white font-medium">
                   Confirm Password
                 </Label>
                 <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-purple-400" />
                   <Input
                     id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="pl-10 pr-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
+                    className="pl-11 pr-12 h-12 bg-white/10 border-purple-500/30 text-white placeholder:text-slate-400 focus:border-purple-400 focus:ring-purple-400/20"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-400 hover:text-purple-300 transition-colors"
                   >
-                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-2">
-                <Checkbox id="terms" required />
+              <div className="flex items-start space-x-2 pt-2">
+                <Checkbox
+                  id="terms"
+                  required
+                  className="mt-0.5 border-purple-500/30 data-[state=checked]:bg-purple-500"
+                />
                 <label htmlFor="terms" className="text-sm text-purple-200 cursor-pointer leading-tight">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-purple-400 hover:text-purple-300">
+                  <Link href="/terms" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="text-purple-400 hover:text-purple-300">
+                  <Link href="/privacy" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
                     Privacy Policy
                   </Link>
                 </label>
               </div>
 
-              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white h-12 text-base">
-                CREATE ACCOUNT →
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-700 hover:to-purple-600 text-white h-12 text-base font-semibold shadow-lg shadow-purple-500/30 transition-all"
+              >
+                Create Account
               </Button>
             </form>
 
-            {/* Sign In Link */}
-            <p className="mt-6 text-center text-sm text-purple-200">
-              Already have an account?{" "}
-              <Link href="/signin" className="text-purple-400 hover:text-purple-300 font-medium">
-                Sign in
+            <div className="mt-6 flex flex-col gap-3">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-purple-500/20" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-slate-900 px-3 text-purple-300">Already have an account?</span>
+                </div>
+              </div>
+              <Link href="/signin" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full bg-white/5 border-purple-500/30 text-white hover:bg-white/10 hover:border-purple-400 h-12 text-base font-semibold transition-all"
+                >
+                  Sign In Instead
+                </Button>
               </Link>
-            </p>
+            </div>
 
             {/* Back to Home */}
             <Link
               href="/"
-              className="mt-4 flex items-center justify-center gap-2 text-sm text-purple-300 hover:text-white"
+              className="mt-6 flex items-center justify-center gap-2 text-sm text-purple-300 hover:text-purple-200 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to home

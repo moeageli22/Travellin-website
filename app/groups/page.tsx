@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Coffee, Dumbbell, Music, BookOpen, Gamepad2, UsersRound, X, Send, User } from "lucide-react"
 import { LottieChatbot } from "@/components/lottie-chatbot"
+import { SettingsDropdown } from "@/components/settings-dropdown"
 
 const backgrounds = [
   { url: "/new-york-city-skyline-at-sunset-with-skyscrapers.jpg", name: "New York City" },
@@ -457,11 +458,14 @@ export default function GroupsPage() {
                 </Link>
               </div>
 
-              <Link href="/signin">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-6">
-                  SIGN IN
-                </Button>
-              </Link>
+              <div className="flex items-center gap-3">
+                <SettingsDropdown />
+                <Link href="/signin">
+                  <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-6">
+                    SIGN IN
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </nav>

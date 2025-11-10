@@ -1,30 +1,39 @@
-# Travellin website design
+# Travelinn – AI-Enhanced Travel & Hotel Platform
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Travelinn is an intelligent travel and hospitality web platform designed to redefine how users explore, connect, and book hotels.  
+Developed as part of the **LSBU ICT Project Management in Practice (CSI_6_ICT)** module, the project demonstrates full-stack web development, teamwork, and AI integration within a real client brief from **Monte Alto Solutions**.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/moeageli22s-projects/v0-travellin-website-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/oScYoobknCE)
+---
 
-## Overview
+##  Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+**Travelinn** combines hotel booking, social travel communities, and AI-powered assistance in one modern, responsive web application.  
+Users can:
+- 🌆 Explore luxury and affordable hotels worldwide  
+- 💳 Book rooms with secure payments (Apple Pay, Credit Card, Google Pay, PayPal)  
+- 💬 Chat with the **AI Travel Assistant** to get recommendations and answers  
+- 👥 Join **travel communities**, chat in themed group spaces, and connect with other travelers  
+- ♿ Access inclusive features that support special needs and accessibility
 
-## Deployment
+---
 
-Your project is live at:
+##  Features
 
-**[https://vercel.com/moeageli22s-projects/v0-travellin-website-design](https://vercel.com/moeageli22s-projects/v0-travellin-website-design)**
+### 🏨 Hotel Discovery & Booking
+- Detailed hotel descriptions (rooms, prices, amenities)
+- Room type selection, date picker, and total cost calculation
+- Secure multi-option payment gateway mockup
 
-## Build your app
+### 💬 AI Travel Assistant
+- Conversational chatbot that answers travel-related questions
+- Suggests destinations, rooms, and activities
+- Offers accessibility and booking support
 
-Continue building your app on:
+### 👥 Travel Communities
+- Join themed travel groups (Food, Culture, Fitness, Nightlife, etc.)
+- Real-time group chat simulation with AI companions (e.g., *Sarah*, *Luca*, *Amira*)
+- View user profiles and traveler cards
 
-**[https://v0.dev/chat/oScYoobknCE](https://v0.dev/chat/oScYoobknCE)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+### 🌐 Accessibility & Inclusivity
+- Optimized for users with diverse accessibility needs
+- Inclusive design principles (contrast, font scaling, ARIA roles)
