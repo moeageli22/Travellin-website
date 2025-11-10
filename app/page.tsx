@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { LottieChatbot } from "@/components/lottie-chatbot"
+import { Menu, X } from "lucide-react"
 
 const backgrounds = [
   {
@@ -30,6 +31,7 @@ const backgrounds = [
 
 export default function HomePage() {
   const [currentBg, setCurrentBg] = useState(0)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,29 +93,92 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              <Link href="/signin">
+              <Link href="/signin" className="hidden md:block">
                 <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-6">
                   SIGN IN
                 </Button>
               </Link>
+
+              <div className="flex items-center gap-3 md:hidden">
+                <Link href="/signin">
+                  <Button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-full px-4 py-2 text-sm">
+                    SIGN IN
+                  </Button>
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-white"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </Button>
+              </div>
             </div>
+
+            {isMobileMenuOpen && (
+              <div className="md:hidden pb-4 space-y-2">
+                <Link
+                  href="/"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/hotels"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Hotels
+                </Link>
+                <Link
+                  href="/groups"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Groups
+                </Link>
+                <Link
+                  href="/wellbeing"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Wellbeing
+                </Link>
+                <Link
+                  href="/concierge"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Concierge
+                </Link>
+                <Link
+                  href="/about"
+                  className="block px-4 py-2 text-sm font-medium text-white hover:bg-purple-600/20 rounded-lg transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+              </div>
+            )}
           </div>
         </nav>
 
         {/* Hero Section */}
-        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4">
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 sm:px-6">
           <div className="max-w-4xl text-center">
-            <h1 className="mb-6 text-5xl font-bold text-white sm:text-6xl md:text-7xl text-balance leading-tight">
+            <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white text-balance leading-tight">
               Discover Your Next Adventure
             </h1>
-            <p className="mb-10 text-lg text-purple-200/90 sm:text-xl text-pretty max-w-3xl mx-auto leading-relaxed">
+            <p className="mb-6 sm:mb-8 md:mb-10 text-base sm:text-lg md:text-xl text-purple-200/90 text-pretty max-w-3xl mx-auto leading-relaxed px-4">
               Connect with fellow travelers, find perfect accommodations, and create unforgettable experiences around
               the world.
             </p>
             <Link href="/hotels">
               <Button
                 size="lg"
-                className="bg-purple-600 hover:bg-purple-700 text-white text-base font-semibold px-10 py-6 h-auto rounded-full shadow-lg hover:shadow-xl transition-all"
+                className="bg-purple-600 hover:bg-purple-700 text-white text-sm sm:text-base font-semibold px-6 sm:px-10 py-4 sm:py-6 h-auto rounded-full shadow-lg hover:shadow-xl transition-all"
               >
                 EXPLORE HOTELS
               </Button>
