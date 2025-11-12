@@ -20,7 +20,7 @@ const backgrounds = [
 const services = [
   {
     icon: Hotel,
-    title: "Accommodation Assistancee",
+    title: "Accommodation Assistance",
     description: "Need help with check-in, room upgrades, or special requests?",
   },
   {
