@@ -29,7 +29,7 @@ export const databaseConfig = {
 export async function connectDatabase() {
   try {
     console.log("[Backend] Connecting to database...")
-    // Add your database connection logic here
+    // Add your database connection logic hereee
     return { success: true, message: "Database connected successfully" }
   } catch (error) {
     console.error("[Backend] Database connection failed:", error)
