@@ -1,0 +1,15 @@
+__turbopack_load_page_chunks__("/_app", [
+  "static/chunks/944f3_next_dist_compiled_c30ff228._.js",
+  "static/chunks/944f3_next_dist_shared_lib_ebf7c21b._.js",
+  "static/chunks/944f3_next_dist_client_501f8d65._.js",
+  "static/chunks/944f3_next_dist_86e4b3d1._.js",
+  "static/chunks/944f3_next_app_f05d2ea8.js",
+  "static/chunks/[next]_entry_page-loader_ts_85edca7a._.js",
+  "static/chunks/944f3_react_d754d06a._.js",
+  "static/chunks/944f3_react-dom_cjs_react-dom_development_e69f199a.js",
+  "static/chunks/944f3_react-dom_918ccc10._.js",
+  "static/chunks/944f3_7e355aa0._.js",
+  "static/chunks/[root-of-the-server]__3e92a770._.js",
+  "static/chunks/WebstormProjects_Travellin-website_pages__app_2da965e7._.js",
+  "static/chunks/turbopack-WebstormProjects_Travellin-website_pages__app_b65de4dc._.js"
+])
