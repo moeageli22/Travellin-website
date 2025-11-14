@@ -1,7 +1,0 @@
-{
-  "/concierge/page": "app/concierge/page.js",
-  "/groups/page": "app/groups/page.js",
-  "/hotels/page": "app/hotels/page.js",
-  "/page": "app/page.js",
-  "/wellbeing/page": "app/wellbeing/page.js"
-}
