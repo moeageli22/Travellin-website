@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', 'Courier New', monospace;
+  
+  /* Base Colors */
+  --color-background: 15 23 42;
+  --color-foreground: 248 250 252;
+  --color-card: 30 41 59;
+  --color-card-foreground: 248 250 252;
+  --color-popover: 30 41 59;
+  --color-popover-foreground: 248 250 252;
+  --color-primary: 168 85 247;
+  --color-primary-foreground: 255 255 255;
+  --color-secondary: 71 85 105;
+  --color-secondary-foreground: 248 250 252;
+  --color-muted: 51 65 85;
+  --color-muted-foreground: 148 163 184;
+  --color-accent: 139 92 246;
+  --color-accent-foreground: 248 250 252;
+  --color-destructive: 239 68 68;
+  --color-destructive-foreground: 248 250 252;
+  --color-border: 71 85 105;
+  --color-input: 71 85 105;
+  --color-ring: 168 85 247;
+  --radius: 0.5rem;
+}
+
+/* Theme Color Overrides */
+.theme-purple {
+  --color-primary: 168 85 247;
+  --color-accent: 139 92 246;
+  --color-ring: 168 85 247;
+}
+
+.theme-blue {
+  --color-primary: 59 130 246;
+  --color-accent: 37 99 235;
+  --color-ring: 59 130 246;
+}
+
+.theme-green {
+  --color-primary: 34 197 94;
+  --color-accent: 22 163 74;
+  --color-ring: 34 197 94;
+}
+
+.theme-red {
+  --color-primary: 239 68 68;
+  --color-accent: 220 38 38;
+  --color-ring: 239 68 68;
+}
+
+.theme-orange {
+  --color-primary: 249 115 22;
+  --color-accent: 234 88 12;
+  --color-ring: 249 115 22;
+}
+
+* {
+  border-color: rgb(var(--color-border));
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}

@@ -1,30 +1,46 @@
-# Travellin website design
+# Travelinn Website
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A modern travel platform built with React, TypeScript, and Tailwind CSS.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/moeageli22s-projects/v0-travellin-website-design)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/oScYoobknCE)
+## Features
 
-## Overview
+- Hotel booking system with advanced search
+- Travel community groups and chat
+- Health & wellbeing resources
+- 24/7 concierge services
+- AI-powered travel assistant
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Tech Stack
 
-## Deployment
+- React 18
+- TypeScript
+- Tailwind CSS
+- React Router
+- Vite
 
-Your project is live at:
+## Getting Started
 
-**[https://vercel.com/moeageli22s-projects/v0-travellin-website-design](https://vercel.com/moeageli22s-projects/v0-travellin-website-design)**
+1. Install dependencies:
+\`\`\`bash
+npm install
+\`\`\`
 
-## Build your app
+2. Run development server:
+\`\`\`bash
+npm run dev
+\`\`\`
 
-Continue building your app on:
+3. Build for production:
+\`\`\`bash
+npm run build
+\`\`\`
 
-**[https://v0.dev/chat/oScYoobknCE](https://v0.dev/chat/oScYoobknCE)**
+## Project Structure
 
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+\`\`\`
+- /src - Source code
+  - /pages - Page components
+  - /components - Reusable components
+  - /lib - Utilities
+- /public - Static assets
+- /backend - API backend
